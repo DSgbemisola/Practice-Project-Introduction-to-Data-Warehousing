@@ -168,6 +168,8 @@ Create the MyDimCustomerSegment table using the CREATE statement below:
 
 # Task 8: Create the fact table MyFactSales
 
+Create the MyFactSales table using the CREATE statement below:
+
           CREATE TABLE MyFactSales (
                       salesid INT PRIMARY KEY,
                       productid INT,
@@ -193,7 +195,142 @@ You will need to load the data provided by the company in CSV format. First, cre
 
 6. In the Database box, type PracProj as the name for your new database, and then click Save. Proceed to Task 10.
 
-![image](https://github.com/user-attachments/assets/c1976cf4-1b64-4649-ad29-04f72a003df4)
+![image](https://github.com/user-attachments/assets/c1c11d86-d128-49a3-8e17-c9f7c8fe5ddb)
+
+# Phase 4: Create tables
+
+# Task 10: Load data into the dimension table DimDate
+
+-STEP 1: Create the DimDate table
+
+Create the DimDate table using the CREATE statement below:
+
+         CREATE TABLE DimDate (
+                      Dateid INT PRIMARY KEY,
+                      date DATE NOT NULL,
+                      Year INT NOT NULL,
+                      Quarter INT NOT NULL,
+                      QuarterName VARCHAR(2) NOT NULL,
+                      Month INT NOT NULL,
+                      Monthname VARCHAR(255) NOT NULL,
+                      Day INT NOT NULL,
+                      Weekday INT NOT NULL,
+                      WeekdayName VARCHAR(255) NOT NULL
+         );
+
+- STEP 2: Download the data from https://drive.google.com/file/d/1imF3b128WfkR_L7efgVoPKiCD4DNeF09/view?usp=sharing
+
+- STEP 3: Load data into DimDate table.
+  
+- STEP 4: Use the import tool in pgAdmin to load your CSV file into the table
+
+Navigate to the DimDate table in pgAdmin, right-click it, select “Import/Export Data”.
+
+Choose “Import”, select your CSV file, and follow the prompts to import the data.
+
+-STEP 5: View the first 5 rows of the dataset using the query statement below:
+
+         SELECT * FROM DimDate 
+         LIMIT 5;
+
+![image](https://github.com/user-attachments/assets/2f4c1096-b305-4237-aac3-ef8b9c4496b2)
+
+# Task 11: Load data into the dimension table DimProduct
+
+- STEP 1: Create the DimProduct table
+
+  Create the DimProduct table using the CREATE statement below:
+
+           CREATE TABLE DimProduct (
+                        Productid INT PRIMARY KEY,
+                        Producttype VARCHAR(255) NOT NULL
+           );
+
+- STEP 2: Download the DimProduct data from https://drive.google.com/file/d/1VovKm9Y58ZTZZ1Rmm-p9E-XBj5G4A980/view?usp=sharing
+
+- STEP 3: Load data into DimProduct table.
+  
+- STEP 4: Use the import tool in pgAdmin to load your CSV file into the table
+
+Navigate to the DimProduct table in pgAdmin, right-click it, select “Import/Export Data”.
+
+Choose “Import”, select your CSV file, and follow the prompts to import the data.
+
+-STEP 5: View the first 5 rows of the dataset using the query statement below:
+
+         SELECT * FROM DimProduct
+         LIMIT 5;
+         
+# Task 12: Load data into the dimension table DimCustomerSegment
+
+- STEP 1: Create the DimCustomerSegment table
+
+  Create the DimCustomerSegment table using the CREATE statement below:
+
+           CREATE TABLE DimCustomerSegment (
+                      Segmentid INT PRIMARY KEY,
+                      City VARCHAR(255) NOT NULL
+           );
+
+- STEP 2: Download the DimCustomerSegment data from https://drive.google.com/file/d/19pT_kQuksppC_4pwxRcV2_LShm2oOtbI/view?usp=sharing
+
+- STEP 3: Load data into DimCustomerSegment table.
+  
+- STEP 4: Use the import tool in pgAdmin to load your CSV file into the table
+
+Navigate to the DimCustomerSegment table in pgAdmin, right-click it, select “Import/Export Data”.
+
+Choose “Import”, select your CSV file, and follow the prompts to import the data.
+
+- STEP 5: View the first 5 rows of the dataset using the query statement below:
+
+         SELECT * FROM DimCustomerSegment
+         LIMIT 5;
+
+![image](https://github.com/user-attachments/assets/d55303b1-e4b4-4295-9375-101dba830907)
+
+# Task 13: Load data into the fact table FactSales
+
+- STEP 1: Create the FactSales table
+
+  Create the FactSales table using the CREATE statement below:
+
+           CREATE TABLE FactSales (
+                       Salesid VARCHAR(255) PRIMARY KEY,
+                       Dateid INT NOT NULL,
+                       Productid INT NOT NULL,
+                       Segmentid INT NOT NULL,
+                       Price_PerUnit DECIMAL(10, 2) NOT NULL,
+                       QuantitySold INT NOT NULL,
+                       FOREIGN KEY (Dateid) REFERENCES DimDate(Dateid),
+                       FOREIGN KEY (Productid) REFERENCES DimProduct(Productid),
+                       FOREIGN KEY (Segmentid) REFERENCES DimCustomerSegment(Segmentid)
+            );
+
+- STEP 2: Download the FactSales data from https://drive.google.com/file/d/1o1oU1jW3bUH3WK5IiCGSWQ53FjLpsiGI/view?usp=sharing
+  
+- STEP 3: Load data into FactSales table.
+  
+- STEP 4: Use the import tool in pgAdmin to load your CSV file into the table
+
+Navigate to the FactSales table in pgAdmin, right-click it, select “Import/Export Data”.
+
+Choose “Import”, select your CSV file, and follow the prompts to import the data.
+
+- STEP 5: View the first 5 rows of the dataset using the query statement below:
+
+         SELECT * FROM FactSales
+         LIMIT 5;
+
+![image](https://github.com/user-attachments/assets/f6712464-e7ae-4cb9-8226-2fa9b53a0f52)
+
+
+
+
+         
+
+
+
 
 
           
